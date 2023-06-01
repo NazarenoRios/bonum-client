@@ -1,0 +1,30 @@
+.card {
+    margin-top: 70px;
+    margin-right: .5vw;
+    margin-left: .5vw;
+}
+
+.card__title {
+    color: #ddd;
+    text-align: center;
+}
+
+.card__title:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.card__poster {
+    border-radius: 2em;
+    height: 40vh;
+}
+
+.card__poster:hover {
+    border: 2px solid #ddd;
+}
+
+@media screen and (max-width: 974px) {
+    .card__poster{
+        height: 65vh;
+    }
+}
