@@ -69,6 +69,8 @@ export default function RegisterForm() {
         },
       })
 
+      console.log(res)
+
       if (res.status === 201) {
         setShowLoading(null)
         setShowLoadingText(null)

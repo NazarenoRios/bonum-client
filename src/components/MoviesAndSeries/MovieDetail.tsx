@@ -26,6 +26,7 @@ type MoviesProps = {
   videos?: any
   first_air_date?: any
   runtime?: any
+  type?: any
 }
 
 function MovieDetail() {

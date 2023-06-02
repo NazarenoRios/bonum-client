@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 // import { fetchApi } from '../../config/axiosInstance'
 
@@ -26,6 +26,8 @@ import {
   Image,
   Center,
 } from '@chakra-ui/react'
+import { fetchApi } from '../../config/axiosInstance'
+import { UserContext } from '../../context/UserContext'
 
 export default function LoginForm() {
   const [invalidAccount, setInvalidAccount] = useState('')
@@ -34,7 +36,7 @@ export default function LoginForm() {
 
   const navigate = useNavigate()
 
-  //   const user = useSelector((state) => state.users)
+  const { user, setUser } = useContext(UserContext)
 
   // activate video in login
   const [loading, setLoading] = useState(false)
@@ -88,41 +90,41 @@ export default function LoginForm() {
   //     fetchGoogleLogin(tokenResponse)
   //   }
 
-  //   // login with db Acc
-  //   const fetchLogin = async (info: any) => {
-  //     const { status, data } = await fetchApi({
-  //       method: 'post',
-  //       url: '/api/users/login',
-  //       body: {
-  //         email: info.email,
-  //         password: info.password,
-  //       },
-  //     }).catch((err: any) => {
-  //       if (err.response.status === 401) {
-  //         setShowLoading(null)
-  //         setShowLoadingText(null)
-  //         setInvalidAccount('Incorrect email or password, please try again')
-  //       }
-  //     })
+  // login with db Acc
+  const fetchLogin = async (info: any) => {
+    const response = await fetchApi({
+      method: 'post',
+      url: '/api/users/login',
+      body: {
+        email: info.email,
+        password: info.password,
+      },
+    }).catch((err: any) => {
+      if (err.response?.status === 401) {
+        setShowLoading(null)
+        setShowLoadingText(null)
+        setInvalidAccount('Incorrect email or password, please try again')
+      }
+    })
 
-  //     if (status === 201) {
-  //       setShowLoading(null)
-  //       setShowLoadingText(null)
-  //       localStorage.setItem('token', data.user.token)
-  //       videoLogin()
-  //     }
+    if (response?.status === 201) {
+      setShowLoading(null)
+      setShowLoadingText(null)
+      localStorage.setItem('token', response.data?.user.token)
+      // videoLogin()
+    }
 
-  //     const res = await fetchApi({
-  //       method: 'get',
-  //       url: `/api/users/persistence/${data.user.id}`,
-  //     })
+    const res = await fetchApi({
+      method: 'get',
+      url: `/api/users/persistence/${response?.data?.user.id}`,
+    })
 
-  //     return res.data
-  //   }
+    return setUser(res.data)
+  }
 
-  //   useEffect(() => {
-  //     if (user.id) navigate('/home')
-  //   }, [])
+  useEffect(() => {
+    if (user.id) navigate('/home')
+  }, [])
 
   // React-hook-form
   const {
@@ -135,7 +137,7 @@ export default function LoginForm() {
     setInvalidAccount('')
     setShowLoading(<Loading />)
     setShowLoadingText('Loading..')
-    // fetchLogin(info)
+    fetchLogin(info)
   }
 
   if (loading) {
@@ -169,7 +171,7 @@ export default function LoginForm() {
             p={{ base: 4, sm: 6, md: 8 }}
             spacing={{ base: 8 }}
             maxW={{ lg: 'lg' }}
-            // onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
           >
             <Stack spacing={4}>
               <Center>{showLoading}</Center>

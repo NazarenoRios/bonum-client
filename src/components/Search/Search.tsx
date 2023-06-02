@@ -23,8 +23,8 @@ type moviesProps = {
   overview?: any
   vote_average?: any
   release_date?: any
-  type?: any
   code?: any
+  type?: any
 }
 
 function Search() {

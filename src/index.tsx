@@ -11,16 +11,19 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 // chakra ui
 import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from './utils/chakraui'
+import UserProvider from './context/UserContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Router>
-      <GoogleOAuthProvider clientId={`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}>
-        <ChakraProvider theme={theme}>
-          <App />
-        </ChakraProvider>
-      </GoogleOAuthProvider>
+      <UserProvider>
+        <GoogleOAuthProvider clientId={`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}>
+          <ChakraProvider theme={theme}>
+            <App />
+          </ChakraProvider>
+        </GoogleOAuthProvider>
+      </UserProvider>
     </Router>
   </React.StrictMode>,
 )

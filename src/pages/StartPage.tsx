@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Footer from '../common/Footer'
@@ -8,6 +8,7 @@ import LoginNav from '../components/Start/LoginNav'
 import LoginPhotos from '../components/Start/LoginPhotos'
 import LoginStream from '../components/Start/LoginStream'
 import PreFooter from '../common/PreFooter'
+import { UserContext } from '../context/UserContext'
 
 function StartPage() {
   // const navigate = useNavigate()
@@ -18,6 +19,9 @@ function StartPage() {
   //     navigate('/home')
   //   }
   // }, [token])
+
+  const userContext = useContext(UserContext)
+  console.log(userContext)
 
   return (
     <>

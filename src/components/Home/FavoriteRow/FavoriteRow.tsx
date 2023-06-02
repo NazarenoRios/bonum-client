@@ -1,19 +1,16 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Image } from '@chakra-ui/react'
 import './Row.css'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline'
 import { fetchApi } from '../../../config/axiosInstance'
+import { UserContext } from '../../../context/UserContext'
 
 const baseURL = 'https://image.tmdb.org/t/p/original/'
 
 interface favProps {
   title: string
-}
-
-type userProps = {
-  id?: number
 }
 
 type moviesProps = {
@@ -31,9 +28,11 @@ type moviesProps = {
 }
 
 function FavoriteRow({ title }: favProps) {
+  // context
+  const { user } = useContext(UserContext)
+
   const rowRef = useRef<HTMLDivElement>(null)
   const [isMoved, setIsMoved] = useState(false)
-  const [users, setUsers] = useState<userProps>({})
   const [movies, setMovies] = useState<moviesProps[]>([])
 
   const handleClick = (direction: string) => {
@@ -50,7 +49,7 @@ function FavoriteRow({ title }: favProps) {
     try {
       const res = await fetchApi({
         method: 'get',
-        url: `/api/movies/favorites?userId=${users.id}`,
+        url: `/api/movies/favorites?userId=${user.id}`,
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
 

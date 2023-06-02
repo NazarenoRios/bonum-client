@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Image } from '@chakra-ui/react'
 import './Nav.css'
 
@@ -12,15 +12,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { UserIcon, LogoutIcon } from '@heroicons/react/outline'
+import { UserContext } from '../../context/UserContext'
+import { fetchApi } from '../../config/axiosInstance'
 
 function Nav() {
+  // context
+  const { user } = useContext(UserContext)
+
   const [updatedUser, setUpdatedUser] = useState({ pic: '' })
-  const [user, setUser] = useState({})
 
-  // const user = useSelector((state) => state.users)
-
-  // const navigate = useNavigate()
-  // const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   // const handleLogout = function () {
   //   dispatch(logOut()).then((res) => {
@@ -57,19 +58,19 @@ function Nav() {
 
   // get updated user
 
-  // const fetchUser = async () => {
-  //   const res = await fetchApi({
-  //     method: 'get',
-  //     url: `/api/users/user/${user.id}`,
-  //     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-  //   })
-  //   setUpdatedUser(res.data)
-  //   return res.data
-  // }
+  const fetchUser = async () => {
+    const res = await fetchApi({
+      method: 'get',
+      url: `/api/users/user/${user.id}`,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    })
+    setUpdatedUser(res.data)
+    return res.data
+  }
 
-  // useEffect(() => {
-  //   fetchUser()
-  // }, [])
+  useEffect(() => {
+    fetchUser()
+  }, [])
 
   return (
     <nav className={`nav ${show && 'bg-[#090b13]'}`}>

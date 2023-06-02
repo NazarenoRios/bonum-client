@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from 'react'
+import { MouseEvent, useContext, useEffect, useState } from 'react'
 import { PlusIcon, CheckIcon } from '@heroicons/react/solid'
 import { Link } from 'react-router-dom'
 
@@ -6,6 +6,7 @@ import './Banner.css'
 import { fetchApi } from '../../../config/axiosInstance'
 import axios from 'axios'
 import requests from '../../../utils/requests'
+import { UserContext } from '../../../context/UserContext'
 
 type MoviesProps = {
   id?: number
@@ -17,23 +18,18 @@ type MoviesProps = {
   overview?: any
   vote_average?: any
   release_date?: any
-}
-
-type UserProps = {
-  id?: number
+  type?: any
 }
 
 function Banner() {
+  // context
+  const { user } = useContext(UserContext)
+
   const getUrl = 'https://api.themoviedb.org/3'
 
   const [checkFav, setCheckFav] = useState(false)
   const [movies, setMovies] = useState([])
   const [movie, setMovie] = useState<MoviesProps>({})
-  const [users, setUsers] = useState<UserProps>({})
-
-  // const movie = useSelector((state: any) => state.movies)
-  // const users = useSelector((state: any) => state.users)
-  // const dispatch = useDispatch()
 
   function truncate(str: string, n: number) {
     return str?.length > n ? str.substr(0, n - 1) + '...' : str
@@ -44,12 +40,10 @@ function Banner() {
     return setMovie(res.data.results[Math.floor(Math.random() * res.data.results.length)])
   }
 
-  console.log(movie)
-
   const fetchMovieData = async () => {
     const res = await fetchApi({
       method: 'get',
-      url: `/api/movies/favorites?userId=${users.id}`,
+      url: `/api/movies/favorites?userId=${user.id}`,
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
 
@@ -63,7 +57,7 @@ function Banner() {
     } catch (e: any) {
       console.log('ERROR', e)
     }
-  }, [])
+  }, [user.id])
 
   useEffect(() => {
     movies?.map((favMov: any) => favMov.code === movie.id && setCheckFav(true))
@@ -72,7 +66,7 @@ function Banner() {
   const fetchAddFavorite = async () => {
     const res = await fetchApi({
       method: 'put',
-      url: `/api/movies/addFavorite?userId=${users.id}&code=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}&vote_average=${movie.vote_average}&release_date=${movie.release_date}&type=movie`,
+      url: `/api/movies/addFavorite?userId=${user.id}&code=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}&vote_average=${movie.vote_average}&release_date=${movie.release_date}&type=movie`,
     })
     return res.data
   }
@@ -80,7 +74,7 @@ function Banner() {
   const fetchDeleteFavorite = async () => {
     const res = await fetchApi({
       method: 'delete',
-      url: `/api/movies/removeFavorite?userId=${users.id}&code=${movie.id}&type=movie`,
+      url: `/api/movies/removeFavorite?userId=${user.id}&code=${movie.id}&type=movie`,
     })
     return res.data
   }
