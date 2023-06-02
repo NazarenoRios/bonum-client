@@ -27,7 +27,7 @@ import {
   Center,
 } from '@chakra-ui/react'
 import { fetchApi } from '../../config/axiosInstance'
-import { UserContext } from '../../context/UserContext'
+import { UserContext } from '../../context/userContext'
 
 export default function LoginForm() {
   const [invalidAccount, setInvalidAccount] = useState('')
@@ -119,12 +119,14 @@ export default function LoginForm() {
       url: `/api/users/persistence/${response?.data?.user.id}`,
     })
 
+    console.log(response)
+
     return setUser(res.data)
   }
 
   useEffect(() => {
     if (user.id) navigate('/home')
-  }, [])
+  }, [user.id])
 
   // React-hook-form
   const {

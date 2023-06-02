@@ -4,14 +4,14 @@ import RegisterForm from '../components/Register/RegisterForm'
 import RegisterNav from '../components/Register/RegisterNav'
 
 function RegisterPage() {
-  //   const navigate = useNavigate()
-  //   const token = localStorage.getItem('token')
+  const navigate = useNavigate()
+  const token = localStorage.getItem('token')
 
-  //   useEffect(() => {
-  //     if (token) {
-  //       navigate('/home')
-  //     }
-  //   }, [token])
+  useEffect(() => {
+    if (token) {
+      navigate('/home')
+    }
+  }, [token])
 
   return (
     <>

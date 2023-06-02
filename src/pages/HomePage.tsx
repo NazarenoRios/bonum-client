@@ -7,7 +7,7 @@ import Categories from '../components/Home/Categories/Categories'
 import FavoriteRow from '../components/Home/FavoriteRow/FavoriteRow'
 import Row from '../components/Home/Row/Row'
 import Nav from '../components/Nav/Nav'
-import { UserContext } from '../context/UserContext'
+import { UserContext } from '../context/userContext'
 import { checkLogin } from '../utils/checkLogin'
 import requests from '../utils/requests'
 
@@ -19,7 +19,6 @@ const HomePage = () => {
   const getUser = async () => {
     try {
       const userData = await checkLogin(setToggleNeedToLogIn)
-      console.log(userData)
       setUser(userData)
     } catch (err) {
       console.log('ERR', err)

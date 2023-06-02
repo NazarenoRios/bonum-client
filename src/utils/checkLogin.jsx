@@ -20,6 +20,7 @@ export const checkLogin = async (setToggleNeedToLogIn) => {
 
     return data
   } catch (err) {
+    console.log('ERROR', err)
     setToggleNeedToLogIn(<NeedToLoginPage />)
   }
 }

@@ -11,7 +11,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 // chakra ui
 import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from './utils/chakraui'
-import UserProvider from './context/UserContext'
+import UserProvider from './context/userContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

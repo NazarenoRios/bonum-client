@@ -1,22 +1,30 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Nav from '../components/Nav/Nav'
 
 // import { useDispatch, useSelector } from 'react-redux'
 // import { checkLogin } from '../state/user'
 import ChangePassword from '../components/MyProfile/ChangePassword'
 import LoadingSpinner from '../common/LoadingSpinner'
+import { UserContext } from '../context/userContext'
+import { checkLogin } from '../utils/checkLogin'
 
 function ChangePasswordPage() {
   const [toggleNeedToLogIn, setToggleNeedToLogIn] = useState(<LoadingSpinner />)
 
-  //   const user = useSelector((state) => state.users)
-  //   const dispatch = useDispatch()
+  const { user, setUser } = useContext(UserContext)
 
-  //   useEffect(() => {
-  //     dispatch(checkLogin(setToggleNeedToLogIn))
-  //   }, [])
+  const getUser = async () => {
+    try {
+      const userData = await checkLogin(setToggleNeedToLogIn)
+      setUser(userData)
+    } catch (err) {
+      console.log('ERR', err)
+    }
+  }
 
-  const [user, setUser] = useState({ id: 1 })
+  useEffect(() => {
+    getUser()
+  }, [])
 
   if (user.id) {
     return (

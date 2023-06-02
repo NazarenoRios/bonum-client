@@ -1,21 +1,16 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Nav from '../../../Nav/Nav'
 import CategoryCard from '../../../../common/Cards/CategoryCard'
 import LoadingSpinner from '../../../../common/LoadingSpinner'
-import { fetchApi } from '../../../../config/axiosInstance'
-import NeedToLogin from '../../../../pages/NeedToLoginPage'
 import axios from 'axios'
 import requests from '../../../../utils/requests'
+import { UserContext } from '../../../../context/userContext'
+import { checkLogin } from '../../../../utils/checkLogin'
 
 export default function Disney() {
   const getUrl = 'https://api.themoviedb.org/3'
 
-  type userProps = {
-    id?: number
-  }
-
-  const [user, setUser] = useState<userProps>({ id: 1 })
   const [movies, setMovies] = useState([])
 
   const CategoryDisneyRequest = async () => {
@@ -26,36 +21,22 @@ export default function Disney() {
     CategoryDisneyRequest()
   }, [])
 
-  // toggleNeedToLogIn
+  // togle needToLogIn
   const [toggleNeedToLogIn, setToggleNeedToLogIn] = useState(<LoadingSpinner />)
 
-  const checkLogin = async () => {
+  const { user, setUser } = useContext(UserContext)
+
+  const getUser = async () => {
     try {
-      const res = await fetchApi({
-        method: 'get',
-        url: '/api/users/me',
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      })
-
-      if (res.status !== 200) {
-        setToggleNeedToLogIn(<NeedToLogin />)
-      }
-
-      const { data } = await fetchApi({
-        method: 'get',
-        url: `/api/users/persistence/${res.data.id}`,
-      })
-
-      setUser(data)
-
-      return data
+      const userData = await checkLogin(setToggleNeedToLogIn)
+      setUser(userData)
     } catch (err) {
-      setToggleNeedToLogIn(<NeedToLogin />)
+      console.log('ERR', err)
     }
   }
 
   useEffect(() => {
-    checkLogin()
+    getUser()
   }, [])
 
   if (user.id) {

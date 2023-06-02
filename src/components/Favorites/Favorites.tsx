@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SimpleGrid } from '@chakra-ui/react'
 
 import Nav from '../Nav/Nav'
@@ -6,18 +6,19 @@ import Card from '../../common/Cards/Card'
 import { fetchApi } from '../../config/axiosInstance'
 import NoMovies from './NoMovies'
 import LoadFavPage from './LoadFavPage'
+import { UserContext } from '../../context/userContext'
 
 export default function Favorites() {
   const [movies, setMovies] = useState([])
   const [toggleNoMovies, setToggleNoMovies] = useState(<LoadFavPage />)
 
-  const [users, setUsers] = useState({ id: 1 })
+  const { user } = useContext(UserContext)
 
   useEffect(() => {
     const fetchMovieData = async () => {
       const res = await fetchApi({
         method: 'get',
-        url: `/api/movies/favorites?userId=${users.id}`,
+        url: `/api/movies/favorites?userId=${user.id}`,
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
 

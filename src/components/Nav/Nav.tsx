@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Image } from '@chakra-ui/react'
 import './Nav.css'
 
 import mainLogo from '../../assets/logo/butterLogo3.png'
 import homeBtn from '../../assets/btnIcons/home-icon.svg'
-import chatBtn from '../../assets/btnIcons/chat.svg'
 import myListBtn from '../../assets/btnIcons/series-icon.svg'
 import searchBtn from '../../assets/btnIcons/search-icon.svg'
 import users from '../../assets/btnIcons/group-icon.svg'
@@ -12,7 +11,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { UserIcon, LogoutIcon } from '@heroicons/react/outline'
-import { UserContext } from '../../context/UserContext'
+import { UserContext } from '../../context/userContext'
 import { fetchApi } from '../../config/axiosInstance'
 
 function Nav() {

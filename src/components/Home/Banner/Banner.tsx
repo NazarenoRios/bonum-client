@@ -6,7 +6,7 @@ import './Banner.css'
 import { fetchApi } from '../../../config/axiosInstance'
 import axios from 'axios'
 import requests from '../../../utils/requests'
-import { UserContext } from '../../../context/UserContext'
+import { UserContext } from '../../../context/userContext'
 
 type MoviesProps = {
   id?: number

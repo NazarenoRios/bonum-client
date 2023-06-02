@@ -17,6 +17,7 @@ export interface UserContextInterface {
 const defaultState = {
   user: {
     name: '',
+    lastname: '',
     email: '',
   },
 } as UserContextInterface

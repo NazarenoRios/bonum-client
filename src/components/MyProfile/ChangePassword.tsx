@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import aside from '../../assets/background/aside.mp4'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
@@ -13,6 +13,7 @@ import { Flex, FormControl, FormLabel, Heading, Input, Stack } from '@chakra-ui/
 
 import './Btns2.css'
 import { fetchApi } from '../../config/axiosInstance'
+import { UserContext } from '../../context/userContext'
 
 export default function ChangePassword() {
   const password = useInput()
@@ -21,8 +22,7 @@ export default function ChangePassword() {
   const navigate = useNavigate()
   // const dispatch = useDispatch()
 
-  // const user = useSelector((state) => state.users)
-  const [user, setUser] = useState({ id: 1 })
+  const { user } = useContext(UserContext)
 
   // same password message
   const [message, setMessage] = useState(false)

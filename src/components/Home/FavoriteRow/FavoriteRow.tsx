@@ -5,7 +5,7 @@ import './Row.css'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline'
 import { fetchApi } from '../../../config/axiosInstance'
-import { UserContext } from '../../../context/UserContext'
+import { UserContext } from '../../../context/userContext'
 
 const baseURL = 'https://image.tmdb.org/t/p/original/'
 
