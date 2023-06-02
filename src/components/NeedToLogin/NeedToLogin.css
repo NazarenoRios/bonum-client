@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+.msg {
+  font-family: 'Questrial', sans-serif;
+  line-height: 1;
+  font-size: 150px;
+  font-weight: 700;
+  -webkit-text-stroke: 2px #fff;
+  color: transparent;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  top: 5vh;
+  padding: 50px 0;
+}
+
+.msg:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin-top: 8%;
+}
+
+.ntl1 {
+  margin-top: 4.7vh;
+  height: 84.5vh;
+  margin-top: 10vh;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-transform: none;
+  font-family: brandon-grotesque;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 51px;
+  letter-spacing: 0.29em;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+@media screen and (max-width: 1830px) {
+  .msg {
+    font-size: 100px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .msg {
+    font-size: 70px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .msg {
+    font-size: 50px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .ntl1 {
+    height: 50vh;
+    margin-left: 5vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .msg {
+    font-size: 30px;
+  }
+  .ntl1 {
+    height: 50vh;
+    margin-left: 5vw;
+  }
+}

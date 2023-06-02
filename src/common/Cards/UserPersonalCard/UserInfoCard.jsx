@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 import { Box, Center, Heading, Text, Stack, Image } from '@chakra-ui/react'
 
-export default function UserInfoCard({ movie }) {
-  const base_url = 'https://image.tmdb.org/t/p/original/'
+export default function UserInfoCard({ movie }: any) {
+  const baseURL = 'https://image.tmdb.org/t/p/original/'
 
   return (
     <Link to={`/movie/${movie.code}`}>
@@ -32,7 +32,7 @@ export default function UserInfoCard({ movie }) {
               pos: 'absolute',
               top: 5,
               left: 0,
-              backgroundImage: `url(${base_url}${movie.poster_path || movie.backdrop_path})`,
+              backgroundImage: `url(${baseURL}${movie.poster_path || movie.backdrop_path})`,
               filter: 'blur(15px)',
               zIndex: -1,
             }}
@@ -47,7 +47,7 @@ export default function UserInfoCard({ movie }) {
               height={230}
               width={282}
               objectFit={'cover'}
-              src={`${base_url}${movie.poster_path || movie.backdrop_path}`}
+              src={`${baseURL}${movie.poster_path || movie.backdrop_path}`}
             />
           </Box>
           <Stack pt={10} align={'center'}>

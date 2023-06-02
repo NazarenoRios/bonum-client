@@ -1,0 +1,127 @@
+.upBtn2 {
+  position: absolute;
+  height: 40px;
+  top: 96vh;
+  left: 46.5vw;
+  cursor: pointer;
+}
+
+.downBtn2 {
+  position: absolute;
+  height: 40px;
+  top: 96vh;
+  left: 46.5vw;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 2400px) {
+  .upBtn2 {
+    left: 46vw;
+  }
+
+  .downBtn2 {
+    left: 46vw;
+  }
+}
+
+@media screen and (max-width: 1900px) {
+  .upBtn2 {
+    left: 45.5vw;
+  }
+
+  .downBtn2 {
+    left: 45.5vw;
+  }
+}
+
+@media screen and (max-width: 1730px) {
+  .upBtn2 {
+    left: 45vw;
+  }
+
+  .downBtn2 {
+    left: 45vw;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .upBtn2 {
+    left: 44.7vw;
+  }
+
+  .downBtn2 {
+    left: 44.7vw;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .upBtn2 {
+    left: 44.2vw;
+  }
+
+  .downBtn2 {
+    left: 44.2vw;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .upBtn2 {
+    left: 43vw;
+  }
+
+  .downBtn2 {
+    left: 43vw;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .upBtn2 {
+    left: 42.2vw;
+  }
+
+  .downBtn2 {
+    left: 42.2vw;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .upBtn2 {
+    left: 41.4vw;
+  }
+
+  .downBtn2 {
+    left: 41.4vw;
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .upBtn2 {
+    left: 40.7vw;
+  }
+
+  .downBtn2 {
+    left: 40.7vw;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .upBtn2 {
+    left: 40vw;
+  }
+
+  .downBtn2 {
+    left: 40vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .upBtn2 {
+    left: 92vw;
+    top: 30.5vh;
+  }
+
+  .downBtn2 {
+    left: 92vw;
+    top: 30.5vh;
+  }
+}

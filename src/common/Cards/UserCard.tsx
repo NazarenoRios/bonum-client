@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom'
 
 import { Box, Center, Heading, Text, Stack, Image } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
 
-export default function UserCard({ user }) {
-  const [t, i18n] = useTranslation('global')
-
+export default function UserCard({ user }: any) {
   return (
     <Link to={`/user/${user.id}`}>
       <Center py={20}>
@@ -54,8 +51,12 @@ export default function UserCard({ user }) {
               {user.email}
             </Heading>
             <Stack direction={'row'} align={'center'}>
-              <span className='text-gray-500' color={'black'} fontWeight={800} fontSize={'xl'}>
-                {t('users.activity')}
+              <span
+                className='text-gray-500'
+                color={'black'}
+                style={{ fontWeight: 800, fontSize: 'xl' }}
+              >
+                Ultima actividad
               </span>
             </Stack>
             <p

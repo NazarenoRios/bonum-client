@@ -1,16 +1,16 @@
 import './Categories.css'
 
-import disneyImg from '../../assets/categories/images/viewers-disney.png'
-import marvelImg from '../../assets/categories/images/viewers-marvel.png'
-import nationalImg from '../../assets/categories/images/viewers-national.png'
-import pixarImg from '../../assets/categories/images/viewers-pixar.png'
-import starwarsImg from '../../assets/categories/images/viewers-starwars.png'
+import disneyImg from '../../../assets/categories/images/viewers-disney.png'
+import marvelImg from '../../../assets/categories/images/viewers-marvel.png'
+import nationalImg from '../../../assets/categories/images/viewers-national.png'
+import pixarImg from '../../../assets/categories/images/viewers-pixar.png'
+import starwarsImg from '../../../assets/categories/images/viewers-starwars.png'
 
-import disneyVideo from '../../assets/categories/videos/disney.mp4'
-import marvelVideo from '../../assets/categories/videos/marvel.mp4'
-import nationalVideo from '../../assets/categories/videos/national-geographic.mp4'
-import pixarVideo from '../../assets/categories/videos/pixar.mp4'
-import starwarsVideo from '../../assets/categories/videos/star-wars.mp4'
+import disneyVideo from '../../../assets/categories/videos/disney.mp4'
+import marvelVideo from '../../../assets/categories/videos/marvel.mp4'
+import nationalVideo from '../../../assets/categories/videos/national-geographic.mp4'
+import pixarVideo from '../../../assets/categories/videos/pixar.mp4'
+import starwarsVideo from '../../../assets/categories/videos/star-wars.mp4'
 import { Link } from 'react-router-dom'
 
 function Categories() {

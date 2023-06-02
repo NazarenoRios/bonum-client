@@ -14,7 +14,7 @@ import styled from 'styled-components'
 import { UserIcon, LogoutIcon } from '@heroicons/react/outline'
 
 function Nav() {
-  const [updatedUser, setUpdatedUser] = useState({})
+  const [updatedUser, setUpdatedUser] = useState({ pic: '' })
   const [user, setUser] = useState({})
 
   // const user = useSelector((state) => state.users)
@@ -103,15 +103,6 @@ function Nav() {
             </li>
           </Link>
 
-          <Link to='/contact'>
-            <li className=''>
-              <div className='btn'>
-                <img src={chatBtn} alt='' />
-                <label>CONTACTO</label>
-              </div>
-            </li>
-          </Link>
-
           <Link to='/users'>
             <li className=''>
               <div className='btn'>
@@ -156,6 +147,10 @@ function Nav() {
   )
 }
 
+type dropMenuProps = {
+  activeState: boolean
+}
+
 const UserProfile = styled.div`
   width: 50px;
   height: 50px;
@@ -173,7 +168,7 @@ const UserProfile = styled.div`
   }
 `
 
-const DropMenu = styled.div`
+const DropMenu = styled.div<dropMenuProps>`
   background-color: #040714;
   border-radius: 0.345rem;
   border: 1.3px solid rgba(151, 151, 151, 1);

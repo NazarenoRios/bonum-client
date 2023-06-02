@@ -1,0 +1,127 @@
+.upBtn {
+  position: absolute;
+  height: 40px;
+  top: 96vh;
+  right: 46.5vw;
+  cursor: pointer;
+}
+
+.downBtn {
+  position: absolute;
+  height: 40px;
+  top: 96vh;
+  right: 46.5vw;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 2400px) {
+  .upBtn {
+    right: 46vw;
+  }
+
+  .downBtn {
+    right: 46vw;
+  }
+}
+
+@media screen and (max-width: 1900px) {
+  .upBtn {
+    right: 45.5vw;
+  }
+
+  .downBtn {
+    right: 45.5vw;
+  }
+}
+
+@media screen and (max-width: 1730px) {
+  .upBtn {
+    right: 45vw;
+  }
+
+  .downBtn {
+    right: 45vw;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .upBtn {
+    right: 44.7vw;
+  }
+
+  .downBtn {
+    right: 44.7vw;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .upBtn {
+    right: 44.2vw;
+  }
+
+  .downBtn {
+    right: 44.2vw;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .upBtn {
+    right: 43vw;
+  }
+
+  .downBtn {
+    right: 43vw;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .upBtn {
+    right: 42.2vw;
+  }
+
+  .downBtn {
+    right: 42.2vw;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .upBtn {
+    right: 41.4vw;
+  }
+
+  .downBtn {
+    right: 41.4vw;
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .upBtn {
+    right: 40.7vw;
+  }
+
+  .downBtn {
+    right: 40.7vw;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .upBtn {
+    right: 40vw;
+  }
+
+  .downBtn {
+    right: 40vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .upBtn {
+    right: 2vw;
+    top: 75vh;
+  }
+
+  .downBtn {
+    right: 2vw;
+    top: 75vh;
+  }
+}

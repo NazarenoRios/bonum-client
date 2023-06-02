@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 import { Box, Center, Heading, Text, Stack, Image } from '@chakra-ui/react'
 
-export default function UserPersonalCard({ user }) {
+export default function UserPersonalCard({ user }: any) {
   return (
     <Link to={`/user/${user.id}`}>
       <Center py={20}>
