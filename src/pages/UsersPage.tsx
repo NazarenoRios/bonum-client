@@ -1,20 +1,18 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Nav from '../components/Nav/Nav'
 import Users from '../components/Users/Users'
-import { UserContext } from '../context/userContext'
 import { checkLogin } from '../utils/checkLogin'
 
 import LoadingSpinner from '../common/LoadingSpinner'
 
 function UsersPage() {
-  const [toggleNeedToLogIn, setToggleNeedToLogIn] = useState(<LoadingSpinner />)
+  const token = localStorage.getItem('token')
 
-  const { user, setUser } = useContext(UserContext)
+  const [toggleNeedToLogIn, setToggleNeedToLogIn] = useState(<LoadingSpinner />)
 
   const getUser = async () => {
     try {
-      const userData = await checkLogin(setToggleNeedToLogIn)
-      setUser(userData)
+      await checkLogin(setToggleNeedToLogIn)
     } catch (err) {
       console.log('ERR', err)
     }
@@ -24,7 +22,7 @@ function UsersPage() {
     getUser()
   }, [])
 
-  if (user.id) {
+  if (token) {
     return (
       <>
         <Nav />

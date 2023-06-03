@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SimpleGrid } from '@chakra-ui/react'
 import UserPersonalCard from '../../common/Cards/UserPersonalCard/UserPersonalCard'
 import UserInfoCard from '../../common/Cards/UserPersonalCard/UserInfoCard'
@@ -10,7 +10,7 @@ function UserPage() {
   const id = params.pathname.split('/user/')[1]
 
   // const [user, setUser] = useState({})
-  const [user, setUser] = useState({ id: 1, name: 'Nazareno' })
+  const [user, setUser] = useState({ name: '' })
   const [movies, setMovies] = useState([])
 
   // User data
@@ -18,19 +18,21 @@ function UserPage() {
     const res = await fetchApi({
       method: 'get',
       url: `/api/users/user/${id}`,
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
     setUser(res.data)
   }
 
   // User movies
   const fetchMovieData = async () => {
-    const res = await fetchApi({
-      method: 'get',
-      url: `/api/movies/favorites?userId=${id}`,
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    })
-    setMovies(res.data)
+    try {
+      const res = await fetchApi({
+        method: 'get',
+        url: `/api/movies/favorites?userId=${id}`,
+      })
+      setMovies(res.data)
+    } catch (e) {
+      console.log('')
+    }
   }
 
   useEffect(() => {

@@ -20,7 +20,6 @@ export default function ChangePassword() {
   const confirmPassword = useInput()
 
   const navigate = useNavigate()
-  // const dispatch = useDispatch()
 
   const { user } = useContext(UserContext)
 

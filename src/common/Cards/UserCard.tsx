@@ -4,7 +4,7 @@ import { Box, Center, Heading, Text, Stack, Image } from '@chakra-ui/react'
 
 export default function UserCard({ user }: any) {
   return (
-    <Link to={`/user/${user.id}`}>
+    <Link to={`/user/${user._id}`}>
       <Center py={20}>
         <Box
           role={'group'}

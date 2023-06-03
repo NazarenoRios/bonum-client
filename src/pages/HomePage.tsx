@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Footer from '../common/Footer'
 import LoadingSpinner from '../common/LoadingSpinner'
 import PreFooter from '../common/PreFooter'
@@ -7,19 +7,17 @@ import Categories from '../components/Home/Categories/Categories'
 import FavoriteRow from '../components/Home/FavoriteRow/FavoriteRow'
 import Row from '../components/Home/Row/Row'
 import Nav from '../components/Nav/Nav'
-import { UserContext } from '../context/userContext'
 import { checkLogin } from '../utils/checkLogin'
 import requests from '../utils/requests'
 
 const HomePage = () => {
-  const [toggleNeedToLogIn, setToggleNeedToLogIn] = useState(<LoadingSpinner />)
+  const token = localStorage.getItem('token')
 
-  const { user, setUser } = useContext(UserContext)
+  const [toggleNeedToLogIn, setToggleNeedToLogIn] = useState(<LoadingSpinner />)
 
   const getUser = async () => {
     try {
-      const userData = await checkLogin(setToggleNeedToLogIn)
-      setUser(userData)
+      await checkLogin(setToggleNeedToLogIn)
     } catch (err) {
       console.log('ERR', err)
     }
@@ -29,7 +27,7 @@ const HomePage = () => {
     getUser()
   }, [])
 
-  if (user?.id) {
+  if (token) {
     return (
       <>
         <Nav />

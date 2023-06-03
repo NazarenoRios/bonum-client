@@ -14,7 +14,7 @@ const NoMovies = () => {
           }}
           className='text-white'
         >
-          You dont have any movie or tv show in favorites
+          No tienes ninguna película o serie en favoritos.
         </Text>
       </Center>
     </Flex>

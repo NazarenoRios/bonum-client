@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { fetchApi } from '../../config/axiosInstance'
 
 function Users() {
-  // const [users, setUsers] = useState([])
   const [users, setUsers] = useState([{ name: '' }])
   const [placeholder, setPlaceholder] = useState('Buscar usuarios...')
 
@@ -15,32 +14,7 @@ function Users() {
   }
 
   // search users
-
   const [search, setSearch] = useState('')
-
-  // search users
-
-  //  const search = useInput();
-
-  // const fetchSearch = async () => {
-  //   const res = await fetchApi({
-  //     method: "get",
-  //     url: `/api/users/search?name=${search.value}`,
-  //     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  //   });
-
-  //   console.log(res)
-
-  //   setUsers(res.data);
-  //   return res.data;
-  // };
-
-  // const handleSearch = (e) => {
-  //   if (e.key === "Enter") {
-  //     e.preventDefault();
-  //     fetchSearch();
-  //   }
-  // };
 
   // Users
   useEffect(() => {
@@ -74,7 +48,11 @@ function Users() {
       <SimpleGrid minChildWidth='300px' spacing='30px'>
         {users
           .filter((user) => {
-            return search.toLowerCase() === '' ? user : user.name.toLowerCase().includes(search)
+            if (search.toLowerCase() === '') {
+              return true // Include all users if the search is empty
+            } else {
+              return user.name && user.name.toLowerCase().includes(search.toLowerCase())
+            }
           })
           .map((user, i) => (
             <UserCard user={user} key={i} />

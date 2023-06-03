@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ReactPlayer from 'react-player'
 import { Image } from '@chakra-ui/react'
@@ -11,6 +11,8 @@ import favorites from '../../assets/btnIcons/favorites.svg'
 
 import { fetchApi } from '../../config/axiosInstance'
 import axios from 'axios'
+import { UserContext } from '../../context/userContext'
+import { checkLogin } from '../../utils/checkLogin'
 
 type MoviesProps = {
   id?: number
@@ -42,17 +44,26 @@ function MovieDetail() {
   const [movie, setMovie] = useState<MoviesProps>({})
   const [movies, setMovies] = useState([])
 
-  // const users = useSelector((state) => state.users)
-  // const movie = useSelector((state) => state.movies)
-  // const dispatch = useDispatch()
+  const { user, setUser } = useContext(UserContext)
 
-  const [users, setUsers] = useState({ id: 1 })
+  const getUser = async () => {
+    try {
+      const userData = await checkLogin()
+      setUser(userData)
+    } catch (err) {
+      console.log('ERR', err)
+    }
+  }
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   const fetchMovieData = async () => {
     try {
       const res = await fetchApi({
         method: 'get',
-        url: `/api/movies/favorites?userId=${users.id}`,
+        url: `/api/movies/favorites?userId=${user.id}`,
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
 
@@ -85,7 +96,7 @@ function MovieDetail() {
   const fetchAddFavorite = async () => {
     const res = await fetchApi({
       method: 'put',
-      url: `/api/movies/addFavorite?userId=${users.id}&code=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}&vote_average=${movie.vote_average}&release_date=${movie.release_date}&type=movie`,
+      url: `/api/movies/addFavorite?userId=${user.id}&code=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}&vote_average=${movie.vote_average}&release_date=${movie.release_date}&type=movie`,
     })
     return res.data
   }
@@ -93,7 +104,7 @@ function MovieDetail() {
   const fetchDeleteFavorite = async () => {
     const res = await fetchApi({
       method: 'delete',
-      url: `/api/movies/removeFavorite?userId=${users.id}&code=${movie.id}&type=movie`,
+      url: `/api/movies/removeFavorite?userId=${user.id}&code=${movie.id}&type=movie`,
     })
     return res.data
   }

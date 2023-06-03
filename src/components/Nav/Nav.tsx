@@ -22,14 +22,18 @@ function Nav() {
 
   const navigate = useNavigate()
 
-  // const handleLogout = function () {
-  //   dispatch(logOut()).then((res) => {
-  //     if (res.payload.status === 204) {
-  //       success('logged out')
-  //       navigate('/')
-  //     }
-  //   })
-  // }
+  const logOut = async () => {
+    localStorage.clear()
+
+    const res = await fetchApi({
+      method: 'post',
+      url: '/api/users/logout',
+    })
+
+    if (res.status === 204) {
+      navigate('/')
+    }
+  }
 
   // popup
   const [popUp, setPopUp] = useState(false)
@@ -58,13 +62,16 @@ function Nav() {
   // get updated user
 
   const fetchUser = async () => {
-    const res = await fetchApi({
-      method: 'get',
-      url: `/api/users/user/${user.id}`,
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    })
-    setUpdatedUser(res.data)
-    return res.data
+    try {
+      const res = await fetchApi({
+        method: 'get',
+        url: `/api/users/user/${user.id}`,
+      })
+      setUpdatedUser(res.data)
+      return res.data
+    } catch (e) {
+      console.log('')
+    }
   }
 
   useEffect(() => {
@@ -74,7 +81,7 @@ function Nav() {
   return (
     <nav className={`nav ${show && 'bg-[#090b13]'}`}>
       <div className='flex items-center space-x-2 md:space-x-10 sm:space-x-2'>
-        <a href='/home'>
+        <Link to='/home'>
           <Image
             className='nav__logo cursor-pointer object-contain'
             src={mainLogo}
@@ -82,7 +89,7 @@ function Nav() {
             height={45}
             alt='Butterflix Logo'
           />
-        </a>
+        </Link>
 
         <ul className='hidden space-x-4 md:flex'>
           <Link to='/home'>
@@ -139,8 +146,7 @@ function Nav() {
 
         <div className='btn flex dropmenu'>
           <LogoutIcon className='dropicons' />
-          <label>CERRAR SESION</label>
-          {/* <label onClick={handleLogout}>CERRAR SESION</label> */}
+          <label onClick={logOut}>CERRAR SESION</label>
         </div>
       </DropMenu>
     </nav>

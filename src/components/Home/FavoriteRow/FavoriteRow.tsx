@@ -11,6 +11,7 @@ const baseURL = 'https://image.tmdb.org/t/p/original/'
 
 interface favProps {
   title: string
+  
 }
 
 type moviesProps = {

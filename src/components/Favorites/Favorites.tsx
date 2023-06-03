@@ -14,20 +14,25 @@ export default function Favorites() {
 
   const { user } = useContext(UserContext)
 
-  useEffect(() => {
-    const fetchMovieData = async () => {
+  const fetchMovieData = async () => {
+    try {
       const res = await fetchApi({
         method: 'get',
         url: `/api/movies/favorites?userId=${user.id}`,
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
 
-      if (res.status !== 200) {
+      if (res.data.length === 0) {
         setToggleNoMovies(<NoMovies />)
       }
 
       setMovies(res.data)
+    } catch (e) {
+      console.log(e)
     }
+  }
+
+  useEffect(() => {
     fetchMovieData()
   }, [])
 

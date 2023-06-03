@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ReactPlayer from 'react-player'
 import { Image } from '@chakra-ui/react'
@@ -11,6 +11,8 @@ import favorites from '../../assets/btnIcons/favorites.svg'
 
 import { fetchApi } from '../../config/axiosInstance'
 import axios from 'axios'
+import { checkLogin } from '../../utils/checkLogin'
+import { UserContext } from '../../context/userContext'
 
 type MoviesProps = {
   id?: number
@@ -42,16 +44,25 @@ function TvDetail() {
   const [movies, setMovies] = useState([])
   const [movie, setMovie] = useState<MoviesProps>({})
 
-  // const users = useSelector((state) => state.users)
-  // const movie = useSelector((state) => state.movies)
-  // const dispatch = useDispatch()
+  const { user, setUser } = useContext(UserContext)
 
-  const [users, setUsers] = useState({ id: 1 })
+  const getUser = async () => {
+    try {
+      const userData = await checkLogin()
+      setUser(userData)
+    } catch (err) {
+      console.log('ERR', err)
+    }
+  }
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   const fetchMovieData = async () => {
     const res = await fetchApi({
       method: 'get',
-      url: `/api/movies/favorites?userId=${users.id}`,
+      url: `/api/movies/favorites?userId=${user.id}`,
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
 
@@ -77,9 +88,10 @@ function TvDetail() {
   }, [movies])
 
   const fetchAddFavorite = async () => {
+    console.log('ASDASDSADSADSA', movie.vote_average)
     const res = await fetchApi({
       method: 'put',
-      url: `/api/movies/addFavorite?userId=${users.id}&code=${movie.id}&title=${movie.name}&poster_path=${movie.poster_path}&vote_average=${movie.vote_average}&release_date=${movie.first_air_date}&type=tv`,
+      url: `/api/movies/addFavorite?userId=${user.id}&code=${movie.id}&title=${movie.name}&poster_path=${movie.poster_path}&vote_average=${movie.vote_average}&release_date=${movie.first_air_date}&type=tv`,
     })
     return res.data
   }
@@ -87,7 +99,7 @@ function TvDetail() {
   const fetchDeleteFavorite = async () => {
     const res = await fetchApi({
       method: 'delete',
-      url: `/api/movies/removeFavorite?userId=${users.id}&code=${movie.id}&type=tv`,
+      url: `/api/movies/removeFavorite?userId=${user.id}&code=${movie.id}&type=tv`,
     })
     return res.data
   }

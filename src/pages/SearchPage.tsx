@@ -1,21 +1,19 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Footer from '../common/Footer'
 import PreFooter from '../common/PreFooter'
 import Nav from '../components/Nav/Nav'
 import Search from '../components/Search/Search'
 import LoadingSpinner from '../common/LoadingSpinner'
-import { UserContext } from '../context/userContext'
 import { checkLogin } from '../utils/checkLogin'
 
 function SearchDetail() {
-  const [toggleNeedToLogIn, setToggleNeedToLogIn] = useState(<LoadingSpinner />)
+  const token = localStorage.getItem('token')
 
-  const { user, setUser } = useContext(UserContext)
+  const [toggleNeedToLogIn, setToggleNeedToLogIn] = useState(<LoadingSpinner />)
 
   const getUser = async () => {
     try {
-      const userData = await checkLogin(setToggleNeedToLogIn)
-      setUser(userData)
+      await checkLogin(setToggleNeedToLogIn)
     } catch (err) {
       console.log('ERR', err)
     }
@@ -25,7 +23,7 @@ function SearchDetail() {
     getUser()
   }, [])
 
-  if (user.id) {
+  if (token) {
     return (
       <>
         <Nav />

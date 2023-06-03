@@ -13,12 +13,7 @@ export const checkLogin = async (setToggleNeedToLogIn) => {
       setToggleNeedToLogIn(<NeedToLoginPage />)
     }
 
-    const { data } = await fetchApi({
-      method: 'get',
-      url: `/api/users/persistence/${res.data.id}`,
-    })
-
-    return data
+    return res.data
   } catch (err) {
     console.log('ERROR', err)
     setToggleNeedToLogIn(<NeedToLoginPage />)

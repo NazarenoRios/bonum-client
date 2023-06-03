@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom'
 
 import { Box, Center, Heading, Text, Stack, Image } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 
 export default function UserInfoCard({ movie }: any) {
   const baseURL = 'https://image.tmdb.org/t/p/original/'
 
+  const [type, setType] = useState('')
+
+  useEffect(() => {
+    setType(movie.type)
+  }, [movie.type])
+
   return (
-    <Link to={`/movie/${movie.code}`}>
+    <Link to={`/${type}/${movie.code}`}>
       <Center py={20}>
         <Box
           role={'group'}
@@ -70,7 +77,7 @@ export default function UserInfoCard({ movie }: any) {
                 letterSpacing: '2px',
               }}
             >
-              {movie.raiting.toFixed(1)}
+              {Number(movie.raiting).toFixed()}
             </p>
           </Stack>
         </Box>

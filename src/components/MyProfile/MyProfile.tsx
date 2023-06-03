@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import aside from '../../assets/background/aside.mp4'
 
@@ -14,16 +14,29 @@ import './Btns.css'
 
 import { Flex, FormControl, FormLabel, Heading, Input, Stack, Avatar } from '@chakra-ui/react'
 import { fetchApi } from '../../config/axiosInstance'
+import { UserContext } from '../../context/userContext'
+import { checkLogin } from '../../utils/checkLogin'
 
 export default function MyProfile() {
-  // const name = useInput('name')
-  // const lastname = useInput('lastname')
   const name = useInput()
   const lastname = useInput()
 
   const navigate = useNavigate()
 
-  const [user, setUser] = useState({ id: 1, pic: 'string' })
+  const { user, setUser } = useContext(UserContext)
+
+  const getUser = async () => {
+    try {
+      const userData = await checkLogin()
+      setUser(userData)
+    } catch (err) {
+      console.log('ERR', err)
+    }
+  }
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   const [userUpdated, setUpdatedUser] = useState({ pic: 'string' })
 
@@ -202,14 +215,14 @@ export default function MyProfile() {
                 color={'blue.500'}
                 className='text-gray-400 hover:text-white'
               >
-                Olvidates tu contraseña?
+                Olvidate tu contraseña?
               </Link>
             </Stack>
             <button
               className='w-full rounded bg-[#02468a] py-3 font-semibold hover:bg-[#051e51]'
               type='submit'
             >
-              Confirmar contraseña
+              Confirmar
             </button>
           </Stack>
         </Stack>

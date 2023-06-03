@@ -36,18 +36,26 @@ function Banner() {
   }
 
   const fetchBanner = async () => {
-    const res = await axios.get(`${getUrl}${requests.fetchAnimation}`)
-    return setMovie(res.data.results[Math.floor(Math.random() * res.data.results.length)])
+    try {
+      const res = await axios.get(`${getUrl}${requests.fetchAnimation}`)
+      return setMovie(res.data.results[Math.floor(Math.random() * res.data.results.length)])
+    } catch (e) {
+      console.log('')
+    }
   }
 
   const fetchMovieData = async () => {
-    const res = await fetchApi({
-      method: 'get',
-      url: `/api/movies/favorites?userId=${user.id}`,
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    })
+    try {
+      const res = await fetchApi({
+        method: 'get',
+        url: `/api/movies/favorites?userId=${user.id}`,
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      })
 
-    setMovies(res.data)
+      setMovies(res.data)
+    } catch (e) {
+      console.log('')
+    }
   }
 
   useEffect(() => {
