@@ -10,7 +10,6 @@ import users from '../../assets/btnIcons/group-icon.svg'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { UserIcon, LogoutIcon } from '@heroicons/react/outline'
 import { UserContext } from '../../context/userContext'
 import { fetchApi } from '../../config/axiosInstance'
 import DropMenuNav from './DropMenuNav'
@@ -147,7 +146,7 @@ function Nav() {
         </UserProfile>
       </div>
 
-      <DropMenuNav popUp={popUp} togglePopUp={togglePopUp} />
+      <DropMenuNav popUp={popUp} logOut={logOut} />
     </nav>
   )
 }
