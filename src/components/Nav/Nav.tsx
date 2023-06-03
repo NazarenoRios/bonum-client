@@ -13,10 +13,11 @@ import styled from 'styled-components'
 import { UserIcon, LogoutIcon } from '@heroicons/react/outline'
 import { UserContext } from '../../context/userContext'
 import { fetchApi } from '../../config/axiosInstance'
+import DropMenuNav from './DropMenuNav'
 
 function Nav() {
   // context
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   const [updatedUser, setUpdatedUser] = useState({ pic: '' })
 
@@ -63,11 +64,21 @@ function Nav() {
 
   const fetchUser = async () => {
     try {
+      const userResponse = await fetchApi({
+        method: 'get',
+        url: '/api/users/me',
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      })
+
+      const user = userResponse.data
+
+      setUser(user)
+
       const res = await fetchApi({
         method: 'get',
         url: `/api/users/user/${user.id}`,
       })
-      setUpdatedUser(res.data)
+      setUser(res.data)
       return res.data
     } catch (e) {
       console.log('')
@@ -132,23 +143,11 @@ function Nav() {
 
       <div className='flex'>
         <UserProfile onClick={togglePopUp}>
-          <img src={updatedUser.pic} style={{ height: '50px' }} alt='profileIcon' />
+          <img src={user.pic} style={{ height: '50px' }} alt='profileIcon' />
         </UserProfile>
       </div>
 
-      <DropMenu activeState={popUp}>
-        <div className='btn flex dropmenu'>
-          <UserIcon className='dropicons' />
-          <Link to='/myprofile'>
-            <label>PERFIL</label>
-          </Link>
-        </div>
-
-        <div className='btn flex dropmenu'>
-          <LogoutIcon className='dropicons' />
-          <label onClick={logOut}>CERRAR SESION</label>
-        </div>
-      </DropMenu>
+      <DropMenuNav popUp={popUp} togglePopUp={togglePopUp} />
     </nav>
   )
 }

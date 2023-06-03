@@ -41,13 +41,17 @@ export default function MyProfile() {
   const [userUpdated, setUpdatedUser] = useState({ pic: 'string' })
 
   const fetchUser = async () => {
-    const res = await fetchApi({
-      method: 'get',
-      url: `/api/users/user/${user.id}`,
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    })
-    setUpdatedUser(res.data)
-    return res.data
+    try {
+      const res = await fetchApi({
+        method: 'get',
+        url: `/api/users/user/${user.id}`,
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      })
+      setUpdatedUser(res.data)
+      return res.data
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   useEffect(() => {
@@ -298,7 +302,7 @@ const Trailer = styled.video`
     width: 45.2vw;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     height: 26vh;
     width: 100%;
   }

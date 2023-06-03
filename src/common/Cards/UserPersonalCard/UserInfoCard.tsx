@@ -1,24 +1,32 @@
 import { Link } from 'react-router-dom'
 
 import { Box, Center, Heading, Text, Stack, Image } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 
-export default function UserPersonalCard({ user }: any) {
+export default function UserInfoCard({ movie }: any) {
+  const baseURL = 'https://image.tmdb.org/t/p/original/'
+
+  const [type, setType] = useState('')
+
+  useEffect(() => {
+    setType(movie.type)
+  }, [movie.type])
+
   return (
-    <Link to={`/user/${user.id}`}>
+    <Link to={`/${type}/${movie.code}`}>
       <Center py={20}>
         <Box
           role={'group'}
           p={6}
+          maxW={'330px'}
           w={'full'}
           className='bg-[#131728]'
           boxShadow={'2xl'}
           rounded={'lg'}
           pos={'relative'}
           zIndex={1}
-          mt={5}
         >
           <Box
-            className='flex justify-center'
             rounded={'lg'}
             mt={-12}
             pos={'relative'}
@@ -31,7 +39,7 @@ export default function UserPersonalCard({ user }: any) {
               pos: 'absolute',
               top: 5,
               left: 0,
-              backgroundImage: `url(${user.pic})`,
+              backgroundImage: `url(${baseURL}${movie.poster_path || movie.backdrop_path})`,
               filter: 'blur(15px)',
               zIndex: -1,
             }}
@@ -41,18 +49,28 @@ export default function UserPersonalCard({ user }: any) {
               },
             }}
           >
-            <Image rounded={'lg'} height={230} width={282} objectFit={'cover'} src={user.pic} />
+            <Image
+              rounded={'lg'}
+              height={230}
+              width={282}
+              objectFit={'cover'}
+              src={`${baseURL}${movie.poster_path || movie.backdrop_path}`}
+            />
           </Box>
           <Stack pt={10} align={'center'}>
             <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-              {user.name} {user.lastname}
+              {movie.title}
             </Text>
-            <Heading color={'white'} fontSize={'xl'} fontFamily={'body'} fontWeight={500}>
-              {user.email}
+            <Heading color={'white'} fontSize={'xl'} fontFamily={'body'} fontWeight={500} py={3}>
+              {movie.release_date}
             </Heading>
             <Stack direction={'row'} align={'center'}>
-              <span className='text-gray-500' color={'black'} fontWeight={800} fontSize={'xl'}>
-                Last Activity
+              <span
+                className='text-gray-500'
+                color={'black'}
+                style={{ fontWeight: 800, fontSize: 'xl' }}
+              >
+                Raiting
               </span>
             </Stack>
             <p
@@ -63,7 +81,7 @@ export default function UserPersonalCard({ user }: any) {
                 letterSpacing: '2px',
               }}
             >
-              {new Date(user.lastActivity).toLocaleDateString()}
+              {Number(movie.raiting).toFixed()}
             </p>
           </Stack>
         </Box>

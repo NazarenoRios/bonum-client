@@ -12,14 +12,25 @@ export default function Favorites() {
   const [movies, setMovies] = useState([])
   const [toggleNoMovies, setToggleNoMovies] = useState(<LoadFavPage />)
 
-  const { user } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
 
   const fetchMovieData = async () => {
     try {
+      const userResponse = await fetchApi({
+        method: 'get',
+        url: '/api/users/me',
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      })
+
+      console.log('USER', userResponse.data)
+
+      const user = userResponse.data
+
+      setUser(user)
+
       const res = await fetchApi({
         method: 'get',
         url: `/api/movies/favorites?userId=${user.id}`,
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
 
       if (res.data.length === 0) {
