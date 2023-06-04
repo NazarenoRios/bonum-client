@@ -1,15 +1,14 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Nav from '../../../Nav/Nav'
 import CategoryCard from '../../../../common/Cards/CategoryCard'
-import LoadingSpinner from '../../../../common/LoadingSpinner'
 import axios from 'axios'
 import requests from '../../../../utils/requests'
-import { UserContext } from '../../../../context/userContext'
-import { checkLogin } from '../../../../utils/checkLogin'
+import NeedToLoginPage from '../../../../pages/NeedToLoginPage'
 
 export default function Marvel() {
   const getUrl = 'https://api.themoviedb.org/3'
+  const userId = localStorage.getItem('userId')
 
   const [movies, setMovies] = useState([])
 
@@ -21,25 +20,7 @@ export default function Marvel() {
     CategoryDisneyRequest()
   }, [])
 
-  // toggleNeedToLogIn
-  const [toggleNeedToLogIn, setToggleNeedToLogIn] = useState(<LoadingSpinner />)
-
-  const { user, setUser } = useContext(UserContext)
-
-  const getUser = async () => {
-    try {
-      const userData = await checkLogin(setToggleNeedToLogIn)
-      setUser(userData)
-    } catch (err) {
-      console.log('ERR', err)
-    }
-  }
-
-  useEffect(() => {
-    getUser()
-  }, [])
-
-  if (user.id) {
+  if (userId) {
     return (
       <>
         <Nav />
@@ -52,5 +33,9 @@ export default function Marvel() {
     )
   }
 
-  return <>{toggleNeedToLogIn}</>
+  return (
+    <>
+      <NeedToLoginPage />
+    </>
+  )
 }

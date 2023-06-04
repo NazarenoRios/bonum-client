@@ -18,8 +18,6 @@ function Nav() {
   // context
   const { user, setUser } = useContext(UserContext)
 
-  const [updatedUser, setUpdatedUser] = useState({ pic: '' })
-
   const navigate = useNavigate()
 
   const logOut = async () => {

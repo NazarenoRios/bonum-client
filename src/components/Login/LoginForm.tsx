@@ -106,6 +106,9 @@ export default function LoginForm() {
         headers: { Authorization: `Bearer ${response?.data?.user.token}` },
       })
 
+      localStorage.setItem('userId', res.data.id)
+      localStorage.setItem('userPic', res.data.pic)
+
       return setUser(res.data)
     } catch (e) {
       console.log('LOGINERROR', e)

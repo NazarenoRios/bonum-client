@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import aside from '../../assets/background/aside.mp4'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
@@ -13,7 +13,6 @@ import { Flex, FormControl, FormLabel, Heading, Input, Stack } from '@chakra-ui/
 
 import './Btns2.css'
 import { fetchApi } from '../../config/axiosInstance'
-import { UserContext } from '../../context/userContext'
 
 export default function ChangePassword() {
   const password = useInput()
@@ -21,7 +20,7 @@ export default function ChangePassword() {
 
   const navigate = useNavigate()
 
-  const { user } = useContext(UserContext)
+  const userId = localStorage.getItem('userId')
 
   // same password message
   const [message, setMessage] = useState(false)
@@ -32,7 +31,7 @@ export default function ChangePassword() {
   const fetchChangePw = async () => {
     const res = await fetchApi({
       method: 'put',
-      url: `/api/users/changePassword/${user.id}`,
+      url: `/api/users/changePassword/${userId}`,
       body: { password: password.value },
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })

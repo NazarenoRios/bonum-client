@@ -9,7 +9,6 @@ function UserPage() {
   const params = useLocation()
   const id = params.pathname.split('/user/')[1]
 
-  // const [user, setUser] = useState({})
   const [user, setUser] = useState({ name: '' })
   const [movies, setMovies] = useState([])
 

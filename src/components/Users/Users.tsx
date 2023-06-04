@@ -22,7 +22,6 @@ function Users() {
       const res = await fetchApi({
         method: 'get',
         url: '/api/users/',
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
 
       setUsers(res.data)

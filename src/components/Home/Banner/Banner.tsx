@@ -1,4 +1,4 @@
-import { MouseEvent, useContext, useEffect, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { PlusIcon, CheckIcon } from '@heroicons/react/solid'
 import { Link } from 'react-router-dom'
 
@@ -6,7 +6,6 @@ import './Banner.css'
 import { fetchApi } from '../../../config/axiosInstance'
 import axios from 'axios'
 import requests from '../../../utils/requests'
-import { UserContext } from '../../../context/userContext'
 
 type MoviesProps = {
   id?: number
@@ -22,8 +21,7 @@ type MoviesProps = {
 }
 
 function Banner() {
-  // context
-  const { user } = useContext(UserContext)
+  const userId = localStorage.getItem('userId')
 
   const getUrl = 'https://api.themoviedb.org/3'
 
@@ -48,7 +46,7 @@ function Banner() {
     try {
       const res = await fetchApi({
         method: 'get',
-        url: `/api/movies/favorites?userId=${user.id}`,
+        url: `/api/movies/favorites?userId=${userId}`,
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
 
@@ -65,7 +63,7 @@ function Banner() {
     } catch (e: any) {
       console.log('ERROR', e)
     }
-  }, [user.id])
+  }, [userId])
 
   useEffect(() => {
     movies?.map((favMov: any) => favMov.code === movie.id && setCheckFav(true))
@@ -74,7 +72,7 @@ function Banner() {
   const fetchAddFavorite = async () => {
     const res = await fetchApi({
       method: 'put',
-      url: `/api/movies/addFavorite?userId=${user.id}&code=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}&vote_average=${movie.vote_average}&release_date=${movie.release_date}&type=movie`,
+      url: `/api/movies/addFavorite?userId=${userId}&code=${movie.id}&title=${movie.title}&poster_path=${movie.poster_path}&vote_average=${movie.vote_average}&release_date=${movie.release_date}&type=movie`,
     })
     return res.data
   }
@@ -82,7 +80,7 @@ function Banner() {
   const fetchDeleteFavorite = async () => {
     const res = await fetchApi({
       method: 'delete',
-      url: `/api/movies/removeFavorite?userId=${user.id}&code=${movie.id}&type=movie`,
+      url: `/api/movies/removeFavorite?userId=${userId}&code=${movie.id}&type=movie`,
     })
     return res.data
   }

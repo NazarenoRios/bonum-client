@@ -11,7 +11,6 @@ const baseURL = 'https://image.tmdb.org/t/p/original/'
 
 interface favProps {
   title: string
-  
 }
 
 type moviesProps = {
@@ -29,8 +28,7 @@ type moviesProps = {
 }
 
 function FavoriteRow({ title }: favProps) {
-  // context
-  const { user } = useContext(UserContext)
+  const userId = localStorage.getItem('userId')
 
   const rowRef = useRef<HTMLDivElement>(null)
   const [isMoved, setIsMoved] = useState(false)
@@ -50,8 +48,7 @@ function FavoriteRow({ title }: favProps) {
     try {
       const res = await fetchApi({
         method: 'get',
-        url: `/api/movies/favorites?userId=${user.id}`,
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        url: `/api/movies/favorites?userId=${userId}`,
       })
 
       setMovies(res.data)
@@ -62,7 +59,7 @@ function FavoriteRow({ title }: favProps) {
 
   useEffect(() => {
     fetchMovieData()
-  }, [])
+  }, [movies.length])
 
   if (movies) {
     return (

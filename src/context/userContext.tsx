@@ -1,7 +1,8 @@
 import { createContext, useState, Dispatch, SetStateAction, ReactNode } from 'react'
 
 export type User = {
-  id?: number
+  _id?: string
+  id?: string
   name?: string
   lastname?: string
   email?: string

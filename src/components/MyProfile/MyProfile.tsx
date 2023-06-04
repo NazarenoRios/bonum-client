@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import aside from '../../assets/background/aside.mp4'
 
@@ -14,8 +14,6 @@ import './Btns.css'
 
 import { Flex, FormControl, FormLabel, Heading, Input, Stack, Avatar } from '@chakra-ui/react'
 import { fetchApi } from '../../config/axiosInstance'
-import { UserContext } from '../../context/userContext'
-import { checkLogin } from '../../utils/checkLogin'
 
 export default function MyProfile() {
   const name = useInput()
@@ -23,20 +21,8 @@ export default function MyProfile() {
 
   const navigate = useNavigate()
 
-  const { user, setUser } = useContext(UserContext)
-
-  const getUser = async () => {
-    try {
-      const userData = await checkLogin()
-      setUser(userData)
-    } catch (err) {
-      console.log('ERR', err)
-    }
-  }
-
-  useEffect(() => {
-    getUser()
-  }, [])
+  const userId = localStorage.getItem('userId')
+  const userPic = localStorage.getItem('userPic')
 
   const [userUpdated, setUpdatedUser] = useState({ pic: 'string' })
 
@@ -44,7 +30,7 @@ export default function MyProfile() {
     try {
       const res = await fetchApi({
         method: 'get',
-        url: `/api/users/user/${user.id}`,
+        url: `/api/users/user/${userId}`,
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       setUpdatedUser(res.data)
@@ -62,7 +48,7 @@ export default function MyProfile() {
   const fetchUpdateProfile = async () => {
     const res = await fetchApi({
       method: 'put',
-      url: `/api/users/profile/${user.id}`,
+      url: `/api/users/profile/${userId}`,
       body: {
         name: name.value,
         lastname: lastname.value,
@@ -75,7 +61,7 @@ export default function MyProfile() {
   const fetchupdateProfileName = async () => {
     const res = await fetchApi({
       method: 'put',
-      url: `/api/users/profile/${user.id}`,
+      url: `/api/users/profile/${userId}`,
       body: { name: name.value },
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
@@ -85,7 +71,7 @@ export default function MyProfile() {
   const fetchupdateProfileLastname = async () => {
     const res = await fetchApi({
       method: 'put',
-      url: `/api/users/profile/${user.id}`,
+      url: `/api/users/profile/${userId}`,
       body: { lastname: lastname.value },
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
@@ -95,7 +81,7 @@ export default function MyProfile() {
   const fetchupdateProfilePicture = async () => {
     const res = await fetchApi({
       method: 'put',
-      url: `/api/users/profile/${user.id}`,
+      url: `/api/users/profile/${userId}`,
       body: { pic: pic },
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
@@ -115,7 +101,7 @@ export default function MyProfile() {
     } else if (lastname.value.length > 0) {
       fetchupdateProfileName()
       navigate('/home')
-    } else if (user.pic !== pic) {
+    } else if (userPic !== pic) {
       fetchupdateProfilePicture()
       navigate('/home')
     }
@@ -142,7 +128,7 @@ export default function MyProfile() {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (image) {
-      const imageRef = ref(storage, `image${user.id}`)
+      const imageRef = ref(storage, `image${userId}`)
       uploadBytes(imageRef, image)
         .then(() => {
           getDownloadURL(imageRef)
