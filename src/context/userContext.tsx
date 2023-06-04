@@ -1,5 +1,7 @@
 import { createContext, useState, Dispatch, SetStateAction, ReactNode } from 'react'
 
+const userId = localStorage.getItem('userId')
+
 export type User = {
   _id?: string
   id?: string
@@ -17,6 +19,8 @@ export interface UserContextInterface {
 
 const defaultState = {
   user: {
+    id: userId,
+    _id: userId,
     name: '',
     lastname: '',
     email: '',
@@ -30,7 +34,7 @@ type UserProviderProps = {
 }
 
 export default function UserProvider({ children }: UserProviderProps) {
-  const [user, setUser] = useState<User>({})
+  const [user, setUser] = useState<User>(defaultState.user)
 
   return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>
 }

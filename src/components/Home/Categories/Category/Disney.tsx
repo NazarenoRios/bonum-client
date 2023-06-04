@@ -1,10 +1,11 @@
 import { SimpleGrid } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Nav from '../../../Nav/Nav'
 import CategoryCard from '../../../../common/Cards/CategoryCard'
 import axios from 'axios'
 import requests from '../../../../utils/requests'
 import NeedToLoginPage from '../../../../pages/NeedToLoginPage'
+import { UserContext } from '../../../../context/userContext'
 
 export default function Disney() {
   const getUrl = 'https://api.themoviedb.org/3'
@@ -19,6 +20,9 @@ export default function Disney() {
   useEffect(() => {
     CategoryDisneyRequest()
   }, [])
+
+  // context
+  const { user } = useContext(UserContext)
 
   if (userId) {
     return (
