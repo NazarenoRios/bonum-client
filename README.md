@@ -20,7 +20,7 @@ npm install
 Use de guia el example.env (copiando y pegando los mismos datos)
 ```
 
-### _4. Ejecutar la aplicacion_   <img align="center" alt="" width="25" height="25" src="https://p1.hiclipart.com/preview/698/321/207/red-npm-nodejs-javascript-package-manager-visual-studio-code-bower-github-png-clipart.jpg" />
+### _4. Ejecutar la aplicacion_   <img align="center" alt="" width="25" height="25" src="https://i.imgur.com/KFMvEoj.png" />
 
 ```
 npm start
