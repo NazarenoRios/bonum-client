@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const baseURL =
   process.env.REACT_APP_ENV === 'production'
-    ? 'https://tmdb-server.onrender.com'
-    : 'http://localhost:8080'
+    ? 'http://ip172-18-0-29-chu04ossnmng008oms4g-3000.direct.labs.play-with-docker.com/'
+    : 'http://localhost:1337'
 
 const config = {
   baseURL,
